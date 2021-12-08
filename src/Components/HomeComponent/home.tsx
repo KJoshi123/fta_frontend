@@ -1,7 +1,9 @@
 import React, {useState, useEffect } from 'react';
 import Header from '../HeaderComponent/Header'
 import ApiService from '../../Api/ApiService';
-import { TextField, FormControl, Table, LinearProgress, Button, Container, InputLabel,Select,MenuItem, Box } from '@material-ui/core';
+import { TextField, FormControl, Table, LinearProgress, Button, Container, InputLabel,Select,MenuItem,
+TableBody, TableCell, TableContainer,TableHead, TableRow, Paper, Grid } from '@material-ui/core';
+import { listeners } from 'process';
 
 const Home : React.FC = () => {
 
@@ -10,8 +12,8 @@ const Home : React.FC = () => {
     const [loader, setLoader] = useState(false);
     const [showForm, setshowform] = useState(false);
     const [userId, setUserId] = useState(1);
-    const [tableData, setTableData] = useState();
     const [measureType,setmeasureType] = useState("rep");
+    const [tableData, setTableData] = useState<any>([]);
 
     const formToggle = () => {
         if(showForm){
@@ -66,58 +68,23 @@ const Home : React.FC = () => {
     const fetchLatest = async ()  => {
         setLoader(true);
         const data = await ApiService.getList("getlist?userid="+userId);
-        //createTableBody(data.data);
-        setTableData(data.data);
-        //console.log(tableData);
+        if(data?.statuscode===200)
+            createTableBody(data.data);
         setLoader(false);
-        //console.log(data);
     }
 
-    const createTableBody = (tableData : any) => {
-        console.log(tableData);
-        if(tableData){
-            return (
-                <tbody>
-                {tableData.forEach((row:any) => {
-                    //console.log(row)
-                    return(
-                        <tr id = {row._id}>
-                            <td>{row._id}</td>
-                            <td>{row.name}</td>
-                            <td>{row.measureType}</td>
-                            <td>{row.count}</td>
-                            <td>{row.createdOn}</td>
-                            {/*console.log(row._id);
-                            console.log(row.name);
-                            console.log(row.measureType);
-                            console.log(row.count);
-                            console.log(new Date(row.createdOn).getMonth());*/}
-                        </tr>
-                    )
-                    forceUpdateSa();
-                })}
-                <tr>
-                    <td colSpan={5}>
-                        Data is present.
-                    </td>
-                </tr>  
-                </tbody>
-                
-            )
-        }
-        else{
-            return(
-                <tbody>
-                    <tr>
-                        <td colSpan={5}>
-                            No Data available
-                        </td>
-                    </tr>    
-                </tbody>
-            )
-        }
-       
+    const createTableRow = (id:String, name:String, measureType:String, count:number, createdOn:any) =>{
+        return({id, name, measureType,count,createdOn});
     }
+    const createTableBody = (tableData : any) => {
+        var rowData : Array<any>=[];
+        tableData.forEach((element :any) =>{
+            
+            rowData.push(createTableRow(element._id,element.name,element.measureType,element.count,element.createdOn))
+        });
+        setTableData(rowData)
+    }
+       
 
     useEffect(() => {
         //fetchLatest();
@@ -126,58 +93,75 @@ const Home : React.FC = () => {
     return(
         <div>
             {loader?<LinearProgress color="secondary" />:(null)}
-            <Header />
-            <Container>
-            <Button
-                id = "opneForm"
-                onClick={formToggle}
-                className = "btn btn-primary"
-                variant="contained"
+            <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+                style={{ minHeight: '20vh' }}
             >
-                Add exercise
-            </Button>
-            
-            <Button
-                id = "fetchDetails"
-                onClick={fetchLatest}
-                variant="contained"
-            >
-                Fetch List
-            </Button>
+                 <Header />
+                <Grid 
+                    id="top-row" 
+                    container 
+                    style={{minHeight: '5vh'}}
+                >
+                    <Grid item xs={6}>
+                        <Paper >
+                            <Button
+                                id = "opneForm"
+                                onClick={formToggle}
+                                className = "btn btn-primary"
+                                variant="contained"
+                            >
+                                Add exercise
+                            </Button>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Paper >
+                            <Button
+                                id = "fetchDetails"
+                                onClick={fetchLatest}
+                                variant="contained"
+                            >
+                                Fetch List
+                            </Button>
+                        </Paper>
+                    </Grid>
+                </Grid>
 
-            {showForm?formHtmlLoader():(null)}
+                {showForm?formHtmlLoader():(null)}
 
-            <br /><br/>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Exercise Name</th>
-                        <th>Repetation Type</th>
-                        <th>Count</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                {createTableBody(tableData)}
-                {/*
-                    tableData?
-                        tableData.forEach((value : any) => {
-
-                        })
-                        :
-                        return(
-                            <tbody>
-                                <tr>
-                                    <td colSpan={5}>
-                                        No Data available
-                                    </td>
-                                </tr>    
-                            </tbody>
-                        )
-                */}
-            </Table>
-
-        </Container>
+                <br /><br/>
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">  
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>id</TableCell>
+                                <TableCell align="right">Name</TableCell>
+                                <TableCell align="right">Measure Type</TableCell>
+                                <TableCell align="right">Count</TableCell>
+                                <TableCell align="right">Created On</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {tableData?.map((row:any) => (
+                                <TableRow key={row.id}>
+                                <TableCell component="th" scope="row">
+                                {row.id}
+                                </TableCell>
+                                <TableCell align="right">{row.name}</TableCell>
+                                <TableCell align="right">{row.measureType}</TableCell>
+                                <TableCell align="right">{row.count}</TableCell>
+                                <TableCell align="right">{row.createdOn}</TableCell>
+                                </TableRow>
+                            ))}
+                            </TableBody>
+                    </Table>
+                </TableContainer>
+        </Grid>
         </div>
     )
 };
