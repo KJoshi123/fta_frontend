@@ -28,7 +28,7 @@ const Home : React.FC = () => {
     }
 
     const submitForm = () => {
-        console.log("submit")
+        console.log("submit");
     }
     const formHtmlLoader = () => {
 
@@ -53,9 +53,7 @@ const Home : React.FC = () => {
 
                     <TextField id="count" label="Count" variant="outlined" />
                     <br/>
-
-                    <Button variant="outlined" size="large" 
-                     onClick={submitForm}>
+                    <Button variant="outlined" size="large" onClick={submitForm}>
                                 Add Exercise
                      </Button>
                      <br/><br/>
