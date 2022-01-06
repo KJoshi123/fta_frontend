@@ -1,14 +1,14 @@
 import React, {useState, useEffect } from 'react';
 import Header from '../HeaderComponent/Header'
 import ApiService from '../../Api/ApiService';
-import { TextField, FormControl, Table, LinearProgress, Button, Container, InputLabel,Select,MenuItem,
+import { TextField, FormControl, Table, LinearProgress, Button, InputLabel,Select,MenuItem,
 TableBody, TableCell, TableContainer,TableHead, TableRow, Paper, Grid } from '@material-ui/core';
-import { listeners } from 'process';
+import moment from 'moment';
+import { DATE_FORMAT } from '../../Constants/commonConstants';
+import './home.css';
 
 const Home : React.FC = () => {
 
-    //@ts-ignore
-    const forceUpdateSa: () => void = React.useState()[1].bind(null, {});
     const [loader, setLoader] = useState(false);
     const [showForm, setshowform] = useState(false);
     const [userId, setUserId] = useState(1);
@@ -23,19 +23,18 @@ const Home : React.FC = () => {
         }
     }
 
-    const toggleMeasureType = (value : any) =>{
-        setmeasureType(value);
+    const handleSubmit = (event: any) =>{
+        console.log("in submit")
+        event.preventDefault();
+        console.log(event);
     }
 
-    const submitForm = () => {
-        console.log("submit");
-    }
     const formHtmlLoader = () => {
 
         return(
-            <div>
+            <div className="background">
                 <br />
-                <FormControl fullWidth>
+                <FormControl fullWidth onSubmit={handleSubmit}>
                     <TextField id="name" label="name of the exercise" variant="outlined" />
                     <br/>
 
@@ -53,12 +52,10 @@ const Home : React.FC = () => {
 
                     <TextField id="count" label="Count" variant="outlined" />
                     <br/>
-                    <Button variant="outlined" size="large" onClick={submitForm}>
-                                Add Exercise
-                     </Button>
+                    <Button variant="outlined" size="large" type="submit">Add Exercise</Button>
                      <br/><br/>
-                    <Button variant="contained" onClick={formToggle}>Close Form section</Button>
                 </FormControl>
+                <Button variant="contained" onClick={formToggle}>Close Form section</Button>
             </div>
         )
     }
@@ -89,7 +86,7 @@ const Home : React.FC = () => {
     });
 
     return(
-        <div>
+        <div className="background">
             {loader?<LinearProgress color="secondary" />:(null)}
             <Grid
                 container
@@ -145,15 +142,15 @@ const Home : React.FC = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tableData?.map((row:any) => (
+                            {tableData?.map((row:any,index:number) => (
                                 <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
-                                {row.id}
+                                {index+1}
                                 </TableCell>
                                 <TableCell align="right">{row.name}</TableCell>
                                 <TableCell align="right">{row.measureType}</TableCell>
                                 <TableCell align="right">{row.count}</TableCell>
-                                <TableCell align="right">{row.createdOn}</TableCell>
+                                <TableCell align="right">{moment(row.createdOn).format(DATE_FORMAT)}</TableCell>
                                 </TableRow>
                             ))}
                             </TableBody>
