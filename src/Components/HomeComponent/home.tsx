@@ -82,8 +82,8 @@ const Home : React.FC = () => {
        
 
     useEffect(() => {
-        //fetchLatest();
-    });
+        fetchLatest();
+    },[]);
 
     return(
         <div className="background">
