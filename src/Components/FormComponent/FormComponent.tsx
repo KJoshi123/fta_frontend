@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { exerciseObject } from '../../Types/Types';
 import './formStyles.css';
 import moment from 'moment';
@@ -19,21 +19,33 @@ const FormComponent : React.FC<props> = ({obj, setObj}) =>{
     const [count,setCount] = useState<string>("");
     const [createdOn,setCreatedOn] = useState<string>("");
 
-    const setObjectValue = (event:any) => {
+    const setObjectValue = async (event:any) => {
         event.preventDefault();
-        obj.count = count;
-        obj.createdBy = userId;
-        obj.name = name;
-        obj.measureType = measureType;
-        obj.userid = userId;
-        obj.createdOn = createdOn;
-        console.log(obj);
-        setObj(obj);
-        ApiService.postData(obj);
+        const newObject : exerciseObject = {
+            count : count,
+            createdBy: userId,
+            name : name,
+            measureType: measureType,
+            userid : userId,
+            createdOn :  createdOn,
+        };
+        // obj.count = count;
+        // obj.createdBy = userId;
+        // obj.name = name;
+        // obj.measureType = measureType;
+        // obj.userid = userId;
+        // obj.createdOn = createdOn;
+        console.log(newObject);
+        await ApiService.postData(newObject);
+        setObj(newObject);
     }
 
+    useEffect(()=>{
+
+    },[name]);
+
     return(
-        <form className='exe__form' onSubmit={setObjectValue}>
+        <form className='exe_form' onSubmit={setObjectValue}>
             <input 
                 type="text" 
                 placeholder='add execise'
