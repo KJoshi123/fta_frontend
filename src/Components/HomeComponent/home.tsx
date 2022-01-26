@@ -6,6 +6,8 @@ TableBody, TableCell, TableContainer,TableHead, TableRow, Paper, Grid } from '@m
 import moment from 'moment';
 import { DATE_FORMAT } from '../../Constants/commonConstants';
 import './home.css';
+import FormComponent from '../FormComponent/FormComponent';
+import {exerciseObject} from '../../Types/Types';
 
 const Home : React.FC = () => {
 
@@ -14,7 +16,15 @@ const Home : React.FC = () => {
     const [userId, setUserId] = useState(1);
     const [measureType,setmeasureType] = useState("rep");
     const [tableData, setTableData] = useState<any>([]);
-
+    const [obj, setObj] = useState<exerciseObject>(
+        {
+            name : "",
+            createdOn : "",
+            measureType : "",
+            count : "",
+            createdBy: "",
+            userid : ""
+        });
     const formToggle = () => {
         if(showForm){
             setshowform(false);
@@ -83,7 +93,7 @@ const Home : React.FC = () => {
 
     useEffect(() => {
         fetchLatest();
-    },[]);
+    },[obj]);
 
     return(
         <div className="background">
@@ -127,7 +137,7 @@ const Home : React.FC = () => {
                     </Grid>
                 </Grid>
 
-                {showForm?formHtmlLoader():(null)}
+                {showForm?<FormComponent obj={obj} setObj={setObj}/>:(null)}
 
                 <br /><br/>
                 <TableContainer component={Paper}>

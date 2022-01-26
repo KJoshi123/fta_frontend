@@ -1,6 +1,7 @@
 import Response from '../Models/Response';
 import axios from 'axios';
 import { backendUrl} from '../Constants/commonConstants';
+import { exerciseObject } from '../Types/Types';
 
 export default class ApiService{
 
@@ -19,5 +20,19 @@ export default class ApiService{
                 return new Response(500, null, "Error", error);
             });
             return res;
+    }
+
+    public static async postData(payload : exerciseObject) {
+        const url = backendUrl + 'saveexercise';
+        const header = {
+            'Content-Type' : 'application/json'
+        };
+
+        await axios.post(url,payload)
+        .then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 }
