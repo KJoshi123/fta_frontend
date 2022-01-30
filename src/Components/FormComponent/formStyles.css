@@ -1,15 +1,25 @@
 .form_exe {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-}
-.input_type {
   flex-direction: column;
+  padding: 10px;
+}
+.input {
   font-size: 20px;
   font-family: "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif";
-  width: "100%";
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  width: max-content;
   background-color: lightgoldenrodyellow;
+  width: 500px;
 }
-.input_button {
-  align-self: flex-start;
+.text {
+  flex-direction: column;
+}
+
+.button {
+  justify-self: center;
+  background-color: lightgreen;
+  border-radius: 10px;
 }

@@ -36,21 +36,20 @@ const FormComponent : React.FC<props> = ({obj, setObj}) =>{
     }
 
     return(
-        <div className='form_exe'>
-            <form onSubmit={setObjectValue}>
+            <form onSubmit={setObjectValue} className='form_exe'>
             <input 
                 type="text" 
-                placeholder='add execise'
+                placeholder='Add Execise'
                 value={name}
                 onChange={(e)=> setName(e.target.value)}
-                className = 'input_type'
+                className = 'input text'
             />
             <input 
                 type="text" 
-                placeholder='count'
+                placeholder='Count'
                 value={count}
                 onChange={(e)=> setCount(e.target.value)}
-                className = 'input_type'
+                className = 'input type'
             />
             <input 
                 type="date" 
@@ -58,21 +57,20 @@ const FormComponent : React.FC<props> = ({obj, setObj}) =>{
                 //value={moment(new Date()).format(DATE_FORMAT)}
                 defaultValue={moment(new Date()).format(DATE_FORMAT)}
                 onChange={(e)=> setCreatedOn(e.target.value)}
-                className = 'input_type'
+                className = 'input'
             />
            <select 
                 onChange={(e) => setMeasureType(e.target.value)}
-                className = 'input_type'>
+                className = 'input text'>
                 <option value="rep">Repetations</option>
                 <option value="sec">Seconds</option>
             </select>
             <button 
                 type='submit'
-                className = 'input_button'>
+                className = 'input button'>
                 ADD
             </button>
-        </form>
-        </div>        
+        </form>       
     )
 }
 

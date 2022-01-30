@@ -9,7 +9,7 @@ const Header : React.FC<HeaderProps> = () =>{
 
     return(
         <>
-            <h1>Exercise tracker</h1>
+            <h1>Exercise Tracker</h1>
         </>
     )
 };
