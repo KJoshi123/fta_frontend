@@ -12,7 +12,7 @@ import {exerciseObject} from '../../Types/Types';
 const Home : React.FC = () => {
 
     const [loader, setLoader] = useState(false);
-    const [showForm, setshowform] = useState(false);
+    const [showForm, setshowform] = useState(true);
     const [userId, setUserId] = useState(1);
     const [tableData, setTableData] = useState<any>([]);
     const [obj, setObj] = useState<exerciseObject>(
@@ -113,23 +113,23 @@ const Home : React.FC = () => {
                     <Table aria-label="simple table">  
                         <TableHead>
                             <TableRow>
-                                <TableCell>id</TableCell>
-                                <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Measure Type</TableCell>
-                                <TableCell align="right">Count</TableCell>
-                                <TableCell align="right">Created On</TableCell>
+                                {/* <TableCell>id</TableCell> */}
+                                <TableCell align="center">Exercise</TableCell>
+                                {/* <TableCell align="right">Measure Type</TableCell> */}
+                                <TableCell align="center">How much?</TableCell>
+                                <TableCell align="center">Date</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {tableData?.map((row:any,index:number) => (
                                 <TableRow key={row.id}>
-                                <TableCell component="th" scope="row">
+                                {/* <TableCell component="th" scope="row">
                                 {index+1}
-                                </TableCell>
-                                <TableCell align="right">{row.name}</TableCell>
-                                <TableCell align="right">{row.measureType}</TableCell>
-                                <TableCell align="right">{row.count}</TableCell>
-                                <TableCell align="right">{moment(row.createdOn).format(DATE_FORMAT)}</TableCell>
+                                </TableCell> */}
+                                <TableCell align="center">{row.name}</TableCell>
+                                {/* <TableCell align="right">{row.measureType}</TableCell> */}
+                                <TableCell align="center">{row.measureType=='rep'?row.count+' Times' : row.count+' Seconds'}</TableCell>
+                                <TableCell align="center">{moment(row.createdOn).format(DATE_FORMAT)}</TableCell>
                                 </TableRow>
                             ))}
                             </TableBody>
