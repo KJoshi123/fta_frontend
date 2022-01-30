@@ -29,12 +29,6 @@ const FormComponent : React.FC<props> = ({obj, setObj}) =>{
             userid : userId,
             createdOn :  createdOn,
         };
-        // obj.count = count;
-        // obj.createdBy = userId;
-        // obj.name = name;
-        // obj.measureType = measureType;
-        // obj.userid = userId;
-        // obj.createdOn = createdOn;
         console.log(newObject);
         await ApiService.postData(newObject);
         setObj(newObject);
