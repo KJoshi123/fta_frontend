@@ -1,8 +1,8 @@
 import React, {useState, useEffect } from 'react';
 import Header from '../HeaderComponent/Header'
 import ApiService from '../../Api/ApiService';
-import { TextField, FormControl, Table, LinearProgress, Button, InputLabel,Select,MenuItem,
-TableBody, TableCell, TableContainer,TableHead, TableRow, Paper, Grid } from '@material-ui/core';
+import { Table, LinearProgress, Button, TableBody, TableCell, 
+            TableContainer,TableHead, TableRow, Paper, Grid } from '@material-ui/core';
 import moment from 'moment';
 import { DATE_FORMAT } from '../../Constants/commonConstants';
 import './home.css';
@@ -14,7 +14,6 @@ const Home : React.FC = () => {
     const [loader, setLoader] = useState(false);
     const [showForm, setshowform] = useState(false);
     const [userId, setUserId] = useState(1);
-    const [measureType,setmeasureType] = useState("rep");
     const [tableData, setTableData] = useState<any>([]);
     const [obj, setObj] = useState<exerciseObject>(
         {
