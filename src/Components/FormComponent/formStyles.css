@@ -10,7 +10,6 @@
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 10px;
-  width: max-content;
   background-color: lightgoldenrodyellow;
   width: 500px;
 }
@@ -22,4 +21,34 @@
   justify-self: center;
   background-color: lightgreen;
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 540px) {
+  .input {
+    font-size: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 5px;
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .input {
+    font-size: 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 5px;
+    width: 300px;
+  }
+}
+
+@media only screen and (max-width: 339px) {
+  .input {
+    font-size: 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 5px;
+    width: 200px;
+  }
 }
