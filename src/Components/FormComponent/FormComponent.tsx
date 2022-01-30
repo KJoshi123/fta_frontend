@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { exerciseObject } from '../../Types/Types';
 import './formStyles.css';
-import moment from 'moment';
 import ApiService from '../../Api/ApiService';
+import moment from 'moment'
 const DATE_FORMAT = "YYYY-MM-DD";
+
 
 
 interface props{
@@ -15,9 +16,9 @@ const FormComponent : React.FC<props> = ({obj, setObj}) =>{
 
     const userId = '1';
     const [name,setName] = useState<string>("");
-    const [measureType,setMeasureType] = useState<string>("");
+    const [measureType,setMeasureType] = useState<string>("rep");
     const [count,setCount] = useState<string>("");
-    const [createdOn,setCreatedOn] = useState<string>("");
+    const [createdOn,setCreatedOn] = useState<string>(moment(new Date()).format(DATE_FORMAT));
 
     const setObjectValue = async (event:any) => {
         event.preventDefault();
@@ -34,36 +35,44 @@ const FormComponent : React.FC<props> = ({obj, setObj}) =>{
         setObj(newObject);
     }
 
-    useEffect(()=>{
-
-    },[name]);
-
     return(
-        <form className='exe_form' onSubmit={setObjectValue}>
+        <div className='form_exe'>
+            <form onSubmit={setObjectValue}>
             <input 
                 type="text" 
                 placeholder='add execise'
                 value={name}
                 onChange={(e)=> setName(e.target.value)}
+                className = 'input_type'
             />
             <input 
                 type="text" 
                 placeholder='count'
                 value={count}
                 onChange={(e)=> setCount(e.target.value)}
+                className = 'input_type'
             />
             <input 
                 type="date" 
                 placeholder='date'
                 //value={moment(new Date()).format(DATE_FORMAT)}
+                defaultValue={moment(new Date()).format(DATE_FORMAT)}
                 onChange={(e)=> setCreatedOn(e.target.value)}
+                className = 'input_type'
             />
-           <select onChange={(e) => setMeasureType(e.target.value)}>
+           <select 
+                onChange={(e) => setMeasureType(e.target.value)}
+                className = 'input_type'>
                 <option value="rep">Repetations</option>
                 <option value="sec">Seconds</option>
             </select>
-            <button type='submit'>ADD</button>
+            <button 
+                type='submit'
+                className = 'input_button'>
+                ADD
+            </button>
         </form>
+        </div>        
     )
 }
 

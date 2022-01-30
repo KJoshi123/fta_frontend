@@ -93,6 +93,7 @@ const Home : React.FC = () => {
 
     useEffect(() => {
         fetchLatest();
+        formToggle();
     },[obj]);
 
     return(

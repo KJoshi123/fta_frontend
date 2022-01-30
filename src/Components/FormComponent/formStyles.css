@@ -1,5 +1,15 @@
-.exe_form {
-  flex: 1;
-  flex-direction: "row";
-  background-color: "red";
+.form_exe {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.input_type {
+  flex-direction: column;
+  font-size: 20px;
+  font-family: "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif";
+  width: "100%";
+  background-color: lightgoldenrodyellow;
+}
+.input_button {
+  align-self: flex-start;
 }
