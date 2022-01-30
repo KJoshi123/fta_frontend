@@ -39,37 +39,6 @@ const Home : React.FC = () => {
         console.log(event);
     }
 
-    const formHtmlLoader = () => {
-
-        return(
-            <div className="background">
-                <br />
-                <FormControl fullWidth onSubmit={handleSubmit}>
-                    <TextField id="name" label="name of the exercise" variant="outlined" />
-                    <br/>
-
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={measureType}
-                        label="Select Measure Type"
-                    >
-                        <MenuItem value={"rep"}>Repetations</MenuItem>
-                        <MenuItem value={"sec"}>Seconds</MenuItem>
-                    </Select>
-                    <br/>
-
-                    <TextField id="count" label="Count" variant="outlined" />
-                    <br/>
-                    <Button variant="outlined" size="large" type="submit">Add Exercise</Button>
-                     <br/><br/>
-                </FormControl>
-                <Button variant="contained" onClick={formToggle}>Close Form section</Button>
-            </div>
-        )
-    }
-
     const fetchLatest = async ()  => {
         setLoader(true);
         const data = await ApiService.getList("getlist?userid="+userId);

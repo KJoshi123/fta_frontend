@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { exerciseObject } from '../../Types/Types';
 import './formStyles.css';
 import ApiService from '../../Api/ApiService';
